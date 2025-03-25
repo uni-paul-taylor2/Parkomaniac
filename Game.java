@@ -16,7 +16,7 @@ public class Game
     private static boolean stopped = true;
     private static boolean pausedOnce = false;
     private static ScrollingImage background = null;
-    //more code can come here
+    //more code can come here :D
     private static void start(){
         if(!stopped) return;
         //more code can come here
