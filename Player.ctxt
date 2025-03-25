@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Player
+comment0.text=\r\n\ The\ Player.\r\n\r\n\ @author\ (Paul\ Taylor)\r\n\ @version\ (24th/3/2025)\r\n
+comment1.params=
+comment1.target=double\ origJumpSpeed()
+comment2.params=p
+comment2.target=void\ addToPanel(JavaGameEngine.GamePanel)
+comment3.params=p
+comment3.target=void\ removeFromPanel(JavaGameEngine.GamePanel)
+comment4.params=
+comment4.target=boolean\ jump()
+comment5.params=
+comment5.target=boolean\ land()
+comment6.params=
+comment6.target=Player()
+numComments=7

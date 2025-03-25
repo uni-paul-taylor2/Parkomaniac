@@ -77,11 +77,11 @@ public class Player implements CompositeGameObject
         rightLeg = new GameObject();
         rightArm = new GameObject();
 
-        head.attachTo(torso);
-        neck.attachTo(torso);
-        leftLeg.attachTo(torso);
-        leftArm.attachTo(torso);
-        rightLeg.attachTo(torso);
-        rightArm.attachTo(torso);
+        head.attatchTo(torso);
+        neck.attatchTo(torso);
+        leftLeg.attatchTo(torso);
+        leftArm.attatchTo(torso);
+        rightLeg.attatchTo(torso);
+        rightArm.attatchTo(torso);
     }
 }
