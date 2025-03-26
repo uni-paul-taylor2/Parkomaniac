@@ -16,6 +16,8 @@ public class Game
     private static boolean stopped = true;
     private static boolean pausedOnce = false;
     private static ScrollingImage background = null;
+    private Player player1, player2;
+    private Ground placeholder; //I don't think this would actually get used
     //more code can come here :D
     private static void start(){
         if(!stopped) return;
@@ -30,6 +32,7 @@ public class Game
         stopped = true;
         //more code can come here
     }
+    private static void loadLevel(int level){}
     public static void main(String[] args)
     {
         JFrame frame = new JFrame();

@@ -6,4 +6,8 @@ import JavaGameEngine.*;
  * @author (Paul Taylor)
  * @version (25th/3/2025)
  */
-public class Ground extends GameObject{}
+public class Ground extends GameObject{
+    private boolean deadly=false;
+    public void setDeadly(boolean potent){deadly=potent;}
+    public boolean isDeadly(){return deadly;}
+}
