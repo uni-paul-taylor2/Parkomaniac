@@ -14,9 +14,9 @@ import JavaGameEngine.*;
  */
 public class Player implements CompositeGameObject
 {
-    private static Clip jumpSound = SoundManager.getAudio("songs/jump.wav");
-    private static Clip failSound = SoundManager.getAudio("songs/fail.wav");
-    private static Clip stepSound = SoundManager.getAudio("songs/step.wav");
+    private static Clip jumpSound = SoundManager.getAudio("sounds/jump.wav");
+    private static Clip failSound = SoundManager.getAudio("sounds/fail.wav");
+    private static Clip stepSound = SoundManager.getAudio("sounds/step.wav");
     
     private char UP, DOWN, LEFT, RIGHT; //keys for movement
     
@@ -26,12 +26,12 @@ public class Player implements CompositeGameObject
     private GameObject rightLeg;
     private GameObject rightArm;
     private GameObject neck;
-    private GameObject torso; //will be the "main" object of the player
-    private GameObject upperRod; //for arm
-    private GameObject lowerRod; //for leg
+    private GameObject torso;
+    private GameObject upperRod; //invisible object for stability of arm oscillation
+    private GameObject lowerRod; //same thing for leg oscillation and "main" game object for the player
     
-    private double torsoX=50, torsoY=200; //x and y of the "main" object of the player (the torso)
-    private double armX=+5, armY=+0, legX=+5, legY=+15, headX=+0, headY=-7, neckX=+3, neckY=-3;
+    private double torsoX=50, torsoY=170; //the other x and y positions to be relative to torso
+    private double armX=+2, armY=+0, legX=+2, legY=+15, headX=-3, headY=-7, neckX=+3, neckY=-3;
     
     private boolean gameEnds=false;
     private boolean jumping;
@@ -40,6 +40,8 @@ public class Player implements CompositeGameObject
     
     @Override
     public void addToPanel(GamePanel p){
+        p.addItem(lowerRod,true,true);
+        p.addItem(upperRod,true,true);
         p.addItem(torso,true,true);
         p.addItem(head,true,true);
         p.addItem(neck,true,true);
@@ -50,6 +52,8 @@ public class Player implements CompositeGameObject
     }
     @Override
     public void removeFromPanel(GamePanel p){
+        p.removeItem(lowerRod);
+        p.removeItem(upperRod);
         p.removeItem(torso);
         p.removeItem(head);
         p.removeItem(neck);
@@ -63,23 +67,23 @@ public class Player implements CompositeGameObject
         if(jumping) return false;
         jumpSpeed = origJumpSpeed();
         jumping = true;
-        torso.setAcceleration(0,Constants.GRAVITY);
+        lowerRod.setAcceleration(0,Constants.GRAVITY);
         return true;
     }
     public boolean land(){
         if(!jumping) return false;
         jumpSpeed = 0;
         jumping = false;
-        torso.setAcceleration(0,0,true);
+        lowerRod.setAcceleration(0,0,true);
         return true;
     }
     
     public Player(Color c, char up, char down, char left, char right)
     {
-        UP = up;
-        DOWN = down;
-        LEFT = left;
-        RIGHT = right;
+        UP = Character.toLowerCase(up);
+        DOWN = Character.toLowerCase(down);
+        LEFT = Character.toLowerCase(left);
+        RIGHT = Character.toLowerCase(right);
         
         //relative to torsoX start
         armX+=torsoX;
@@ -93,9 +97,8 @@ public class Player implements CompositeGameObject
         //relative to torsoX stop
         
         //setting rods start
-        Rectangle2D.Double upperShape = new Rectangle2D.Double(armX,armY,2,7);
-        Rectangle2D.Double lowerShape = new Rectangle2D.Double(legX,legY,3,10);
-        upperRod = new GameObject(upperShape,new Color(0,0,0,0),true);
+        Rectangle2D.Double upperShape = new Rectangle2D.Double(armX,armY,3,12);
+        Rectangle2D.Double lowerShape = new Rectangle2D.Double(legX,legY,4,15);
         lowerRod = new GameObject(lowerShape,new Color(0,0,0,0),true){
             @Override
             public void onGameTick(int tick, ArrayList<GameObject> collisions){
@@ -110,23 +113,11 @@ public class Player implements CompositeGameObject
                 }
                 onGameTickDefault(tick,collisions);
             }
-        };
-        //setting rods stop
-        
-        RoundRectangle2D.Double torsoShape = new RoundRectangle2D.Double(torsoX,torsoY,5,20,3,3);
-        RoundRectangle2D.Double headShape = new RoundRectangle2D.Double(headX,headY,10,10,5,5);
-        RoundRectangle2D.Double neckShape = new RoundRectangle2D.Double(neckX,neckY,3,7,1,1);
-        RoundRectangle2D.Double leftLegShape = new RoundRectangle2D.Double(legX,legY,3,10,1,1);
-        RoundRectangle2D.Double leftArmShape = new RoundRectangle2D.Double(armX,armY,2,7,1,1);
-        RoundRectangle2D.Double rightLegShape = new RoundRectangle2D.Double(legX,legY,3,10,1,1);
-        RoundRectangle2D.Double rightArmShape = new RoundRectangle2D.Double(armX,armY,2,7,1,1);
-        
-        torso = new GameObject(torsoShape,c,true){
             @Override
             public void onKeyPress(KeyEvent k){
-                //handle movement of the player on the whole here
-                boolean jumpKeyPressed = true; //obviously to change
-                if(jumpKeyPressed){
+                char key = Character.toLowerCase(k.getKeyChar());
+                //program all the keyboard derived activities here
+                if(key==UP){
                     if(!jumping){
                         jump();
                         speedY = jumpSpeed;
@@ -134,11 +125,39 @@ public class Player implements CompositeGameObject
                 }
             }
         };
+        upperRod = new GameObject(upperShape,new Color(0,0,0,0),true);
+        jumping = true;
+        lowerRod.setAcceleration(0,Constants.GRAVITY); //start off with gravity
+        //setting rods stop
+        
+        RoundRectangle2D.Double torsoShape = new RoundRectangle2D.Double(torsoX,torsoY,5,20,3,3);
+        RoundRectangle2D.Double headShape = new RoundRectangle2D.Double(headX,headY,10,10,5,5);
+        RoundRectangle2D.Double neckShape = new RoundRectangle2D.Double(neckX,neckY,3,7,1,1);
+        RoundRectangle2D.Double leftLegShape = new RoundRectangle2D.Double(legX,legY,4,15,1,1);
+        RoundRectangle2D.Double leftArmShape = new RoundRectangle2D.Double(armX,armY,3,12,1,1);
+        RoundRectangle2D.Double rightLegShape = new RoundRectangle2D.Double(legX,legY,4,15,1,1);
+        RoundRectangle2D.Double rightArmShape = new RoundRectangle2D.Double(armX,armY,3,12,1,1);
+        
+        torso = new GameObject(torsoShape,c,true){
+            @Override
+            public void onGameTick(int tick, ArrayList<GameObject> collisions){
+                endGameIfCollision(collisions);
+                onGameTickDefault(tick,collisions);
+            }
+        };
         head = new GameObject(headShape,c,true){
-            //todo
+            @Override
+            public void onGameTick(int tick, ArrayList<GameObject> collisions){
+                endGameIfCollision(collisions);
+                onGameTickDefault(tick,collisions);
+            }
         };
         neck = new GameObject(neckShape,c,true){
-            //todo
+            @Override
+            public void onGameTick(int tick, ArrayList<GameObject> collisions){
+                endGameIfCollision(collisions);
+                onGameTickDefault(tick,collisions);
+            }
         };
         
         leftLeg = new GameObject(leftLegShape,c,true){
@@ -179,12 +198,14 @@ public class Player implements CompositeGameObject
             }
         };
 
-        head.attatchTo(torso);
-        neck.attatchTo(torso);
-        leftLeg.attatchTo(torso);
-        leftArm.attatchTo(torso);
-        rightLeg.attatchTo(torso);
-        rightArm.attatchTo(torso);
+        upperRod.attatchTo(lowerRod);
+        torso.attatchTo(lowerRod);
+        head.attatchTo(lowerRod);
+        neck.attatchTo(lowerRod);
+        leftLeg.attatchTo(lowerRod);
+        leftArm.attatchTo(lowerRod);
+        rightLeg.attatchTo(lowerRod);
+        rightArm.attatchTo(lowerRod);
     }
     
     private void endGameIfCollision(ArrayList<GameObject> collisions){
@@ -200,6 +221,7 @@ public class Player implements CompositeGameObject
             if(
                 item==leftLeg || item==rightLeg || item==leftArm || item==rightArm
                 || item==head || item==upperRod || item==lowerRod || item==torso || item==neck
+                || (item instanceof Ground)
             ) continue;
             gameEnds = true;
             break;

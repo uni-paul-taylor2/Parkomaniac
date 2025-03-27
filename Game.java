@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import JavaGameEngine.*;
+import javax.sound.sampled.*;
 
 /**
  * The game's entry point.
@@ -16,13 +17,18 @@ public class Game
     private static boolean stopped = true;
     private static boolean pausedOnce = false;
     private static ScrollingImage background = null;
-    private Player player1, player2;
-    private Ground placeholder; //I don't think this would actually get used
+    private static Clip track = SoundManager.getAudio("sounds/background.wav");
+    private static Player player1, player2;
+    private static Ground placeholder; //I don't think this would actually get used
     //more code can come here :D
     private static void start(){
         if(!stopped) return;
         //more code can come here
+        player1 = new Player(Color.GREEN, 'w','a','s','d');
+        placeholder = new Ground(false);
         panel.start();
+        panel.addItem(player1);
+        panel.addItem(placeholder,true,true);
         //more code can come here
         stopped = false;
     }
@@ -30,6 +36,7 @@ public class Game
         if(stopped) return;
         panel.stop();
         stopped = true;
+        pointsLabel.setText("Game Over");
         //more code can come here
     }
     private static void loadLevel(int level){}
@@ -50,10 +57,18 @@ public class Game
                 if(getTick()!=1) return;
                 if(!pausedOnce) pause();
                 pausedOnce = true;
+                pointsLabel.setText("Press any key to play :D");
                 //code can come here
             }
         };
         //code can come here
+        JPanel pointsPanel = new JPanel();
+        pointsLabel = new JLabel(">:D");
+        pointsPanel.add(pointsLabel);
+        frame.setLayout(new BorderLayout());
+        frame.add(pointsPanel, BorderLayout.NORTH);
+        frame.add(panel, BorderLayout.CENTER);
+        frame.setVisible(true);
         start();
     }
 }
