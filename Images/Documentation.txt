@@ -1,0 +1,9 @@
+Image details :
+
+TileMap entities :16px * 16px
+Level ICO : 48px * 48px
+
+Mainmenu/ Level Select / Tutorial BG - 320 px * 180px
+Level 1 - Looping Background Dimension: 800 px * 180px
+Level 2 - Parallax Background Dimension: 816 px * 180px
+Level 3 - Parallax Background Dimension: 800 px * 180px
