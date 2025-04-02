@@ -17,14 +17,14 @@ public class Game
     private static boolean stopped = true;
     private static boolean pausedOnce = false;
     private static ScrollingImage background = null;
-    private static Clip track = SoundManager.getAudio("sounds/background.wav");
+    private static Clip track = SoundManager.getAudio("Sounds/background.wav");
     private static Player player1, player2;
     private static Ground placeholder; //I don't think this would actually get used
     //more code can come here :D
     private static void start(){
         if(!stopped) return;
         //more code can come here
-        player1 = new Player(Color.GREEN, 'w','a','s','d');
+        player1 = new Player(Color.GREEN, 'w','s','a','d');
         placeholder = new Ground(false);
         panel.start();
         panel.addItem(player1);

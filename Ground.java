@@ -17,4 +17,12 @@ public class Ground extends GameObject{
         super(new Rectangle2D.Double(0,219,599,179),new Color(92,67,39),true);
         setDeadly(potent);
     }
+    public Ground(Shape s, boolean potent){
+        super(s,new Color(92,67,39),true);
+        setDeadly(potent);
+    }
+    public Ground(Shape s, Color c, boolean potent){
+        super(s,c,true);
+        setDeadly(potent);
+    }
 }

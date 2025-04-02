@@ -14,11 +14,12 @@ import JavaGameEngine.*;
  */
 public class Player implements CompositeGameObject
 {
-    private static Clip jumpSound = SoundManager.getAudio("sounds/jump.wav");
-    private static Clip failSound = SoundManager.getAudio("sounds/fail.wav");
-    private static Clip stepSound = SoundManager.getAudio("sounds/step.wav");
+    private static Clip jumpSound = SoundManager.getAudio("Sounds/jump.wav");
+    private static Clip failSound = SoundManager.getAudio("Sounds/fail.wav");
+    private static Clip stepSound = SoundManager.getAudio("Sounds/step.wav");
     
     private char UP, DOWN, LEFT, RIGHT; //keys for movement
+    boolean up=false, down=false, left=false, right=false; //if a key is pressed(true) or released(false)
     
     private GameObject head;
     private GameObject leftLeg;
@@ -78,12 +79,12 @@ public class Player implements CompositeGameObject
         return true;
     }
     
-    public Player(Color c, char up, char down, char left, char right)
+    public Player(Color c, char u, char d, char l, char r)
     {
-        UP = Character.toLowerCase(up);
-        DOWN = Character.toLowerCase(down);
-        LEFT = Character.toLowerCase(left);
-        RIGHT = Character.toLowerCase(right);
+        UP = Character.toLowerCase(u);
+        DOWN = Character.toLowerCase(d);
+        LEFT = Character.toLowerCase(l);
+        RIGHT = Character.toLowerCase(r);
         
         //relative to torsoX start
         armX+=torsoX;
@@ -114,15 +115,37 @@ public class Player implements CompositeGameObject
                 onGameTickDefault(tick,collisions);
             }
             @Override
-            public void onKeyPress(KeyEvent k){
+            public void onKeyDown(KeyEvent k){
                 char key = Character.toLowerCase(k.getKeyChar());
+                if(key==UP) up=true;
+                if(key==DOWN) down=true;
+                if(key==LEFT) left=true;
+                if(key==RIGHT) right=true;
                 //program all the keyboard derived activities here
-                if(key==UP){
+                if(up){
                     if(!jumping){
                         jump();
                         speedY = jumpSpeed;
                     }
                 }
+                if(down){
+                    //do nothing useful ;-;
+                }
+                if(left){
+                    speedX = -200;
+                }
+                if(right){
+                    speedX = 200;
+                }
+            }
+            @Override
+            public void onKeyUp(KeyEvent k){
+                char key = Character.toLowerCase(k.getKeyChar());
+                if(key==UP) up=false;
+                if(key==DOWN) down=false;
+                if(key==LEFT) left=false;
+                if(key==RIGHT) right=false;
+                if(!left && !right) speedX=0;
             }
         };
         upperRod = new GameObject(upperShape,new Color(0,0,0,0),true);
