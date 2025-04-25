@@ -78,11 +78,10 @@ public class Game
                 double furthestX = Math.max(player1.getX(), player2.getX());
                 double cameraX = panel.getCameraX();
                 double end = Constants.DEFAULT_PANEL_WIDTH;
-                double margin = end/10;
+                double margin = end/3;
                 if(furthestX-margin>=cameraX && cameraX+end-margin>=furthestX) return; //no camera changes required
                 if(furthestX-margin<cameraX) panel.setCamera(furthestX-margin, panel.getCameraY());
                 else if(cameraX+end-margin<furthestX) panel.setCamera(furthestX-(end-margin), panel.getCameraY());
-                //else if(cameraX+end-margin<furthestX) panel.setCamera(cameraX+margin, panel.getCameraY());
                 //code can come here
             }
         };

@@ -105,15 +105,17 @@ public class Player implements CompositeGameObject
         lowerRod = new GameObject(lowerShape,new Color(0,0,0,0),true){
             @Override
             public void onGameTick(int tick, ArrayList<GameObject> collisions){
-                boolean justStartedJumping = origJumpSpeed()==speedY;
+                boolean justStartedJumping=origJumpSpeed()==speedY, grounded=false;
                 if(!justStartedJumping){
                     for(GameObject gameObject: collisions){
                         if(gameObject instanceof Ground){
                             land();
+                            grounded=true;
                             break;
                         }
                     }
                 }
+                if(!grounded) lowerRod.setAcceleration(0, Constants.GRAVITY);
                 onGameTickDefault(tick,collisions);
             }
             @Override
