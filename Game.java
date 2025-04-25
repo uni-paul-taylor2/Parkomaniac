@@ -25,11 +25,8 @@ public class Game
     private static boolean pausedOnce = false;
     private static ParallaxScrollingImage background = new ParallaxScrollingImage();
     private static LevelLoader loader = new LevelLoader();
-    private static GameObject root = new GameObject(); //invisible main object for other game objects
     //private static Clip track = SoundManager.getAudio("Sounds/background.wav");
     private static Player player1, player2;
-    private static double prevShiftX = 0, prevShiftY = 0;
-    private static boolean shiftedBefore = false;
     //more code can come here :D
     private static void start(){
         if(!stopped) return;
@@ -39,15 +36,10 @@ public class Game
         //more code can come here
         panel.start();
         ArrayList<GameObject> gameObjects = loader.load(level,background); //loaded game objects for the level
-        panel.addItem(root);
         panel.addItem(background);
         panel.addItem(player1);
         panel.addItem(player2);
-        for(GameObject item: gameObjects){
-            if(item.getAttatchedItem()==null) item.attatchTo(root);
-            else item.getAttatchedItem().attatchTo(root);
-            panel.addItem(item);
-        }
+        for(GameObject item: gameObjects) panel.addItem(item);
         stopped = false;
     }
     public static void stop(){
@@ -83,24 +75,14 @@ public class Game
                     pointsLabel.setText("Press any key to play :D");
                     return;
                 }
-                double centerX = (frame.getX()+frame.getWidth()) / 2;
-                double centerY = (frame.getY()+frame.getHeight()) / 2;
-                double cameraX = (player1.getX()+player2.getX()) / 2;
-                double cameraY = (player1.getY()+player2.getY()) / 2;
-                double shiftX = centerX - cameraX;
-                double shiftY = centerY - cameraY;
-                double trueShiftX = prevShiftX - shiftX;
-                double trueShiftY = prevShiftY - shiftY;
-                if(shiftedBefore){
-                    background.scroll(-trueShiftX, 0);
-                    root.moveTo(root.getX()-trueShiftX, root.getY());
-                    //y shifting is kinda annoying
-                    //background.scroll(-trueShiftX, -trueShiftY);
-                    //root.moveTo(root.getX()-trueShiftX, root.getY()-trueShiftY);
-                }
-                else shiftedBefore=true; //no shifting at first to hold current alignment
-                prevShiftX = shiftX;
-                prevShiftY = shiftY;
+                double furthestX = Math.max(player1.getX(), player2.getX());
+                double cameraX = panel.getCameraX();
+                double end = Constants.DEFAULT_PANEL_WIDTH;
+                double margin = end/10;
+                if(furthestX-margin>=cameraX && cameraX+end-margin>=furthestX) return; //no camera changes required
+                if(furthestX-margin<cameraX) panel.setCamera(furthestX-margin, panel.getCameraY());
+                else if(cameraX+end-margin<furthestX) panel.setCamera(furthestX-(end-margin), panel.getCameraY());
+                //else if(cameraX+end-margin<furthestX) panel.setCamera(cameraX+margin, panel.getCameraY());
                 //code can come here
             }
         };

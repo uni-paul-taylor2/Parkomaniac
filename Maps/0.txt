@@ -9,4 +9,4 @@
 0.8 Images/Backgrounds/lvl3/8.png
 0.9 Images/Backgrounds/lvl3/9.png
 1 Images/Backgrounds/lvl3/10.png
-Ground false brown Rectangle 0 180 8599 179
+Ground false brown Rectangle 0 180 599 179

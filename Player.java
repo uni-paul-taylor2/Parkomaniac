@@ -223,14 +223,14 @@ public class Player implements CompositeGameObject
             }
         };
 
-        upperRod.attatchTo(lowerRod);
-        torso.attatchTo(lowerRod);
-        head.attatchTo(lowerRod);
-        neck.attatchTo(lowerRod);
-        leftLeg.attatchTo(lowerRod);
-        leftArm.attatchTo(lowerRod);
-        rightLeg.attatchTo(lowerRod);
-        rightArm.attatchTo(lowerRod);
+        upperRod.attachTo(lowerRod);
+        torso.attachTo(lowerRod);
+        head.attachTo(lowerRod);
+        neck.attachTo(lowerRod);
+        leftLeg.attachTo(lowerRod);
+        leftArm.attachTo(lowerRod);
+        rightLeg.attachTo(lowerRod);
+        rightArm.attachTo(lowerRod);
         
         lowerRod.setParent(this);
         upperRod.setParent(this);
