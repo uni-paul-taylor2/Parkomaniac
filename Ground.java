@@ -13,6 +13,10 @@ public class Ground extends GameObject{
     public void setDeadly(boolean potent){deadly=potent;}
     public boolean isDeadly(){return deadly;}
     
+    public Ground(){
+        super(new Rectangle2D.Double(0,219,599,179),new Color(92,67,39),true);
+        setDeadly(false);
+    }
     public Ground(boolean potent){
         super(new Rectangle2D.Double(0,219,599,179),new Color(92,67,39),true);
         setDeadly(potent);
