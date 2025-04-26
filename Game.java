@@ -25,11 +25,12 @@ public class Game
     private static boolean pausedOnce = false;
     private static ParallaxScrollingImage background = new ParallaxScrollingImage();
     private static LevelLoader loader = new LevelLoader();
-    //private static Clip track = SoundManager.getAudio("Sounds/background.wav");
+    private static Clip track = SoundManager.getAudio("Sounds/Backgrounds/mainBG.wav");
     private static Player player1, player2;
     //more code can come here :D
     private static void start(){
         if(!stopped) return;
+        SoundManager.playAudio(track,true);
         //more code can come here
         player1 = new Player(Color.GREEN, 'w', 's', 'a', 'd');
         player2 = new Player(Color.GRAY, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT);
@@ -40,19 +41,26 @@ public class Game
         panel.addItem(player1);
         panel.addItem(player2);
         for(GameObject item: gameObjects) panel.addItem(item);
+        pointsLabel.setText("Good Luck on level "+(level+1)+" :D");
         stopped = false;
     }
     public static void stop(){
         if(stopped) return;
+        track.stop();
         panel.stop();
         stopped = true;
+        pausedOnce = false;
         pointsLabel.setText("Game Over");
         //more code can come here
     }
     public static void nextLevel(){
         stop();
         level = level+1;
-        if(level > 3) return; //all levels finished
+        if(level > 3){
+            pointsLabel.setText("Game WON :D");
+            return; //all levels finished
+        }
+        if(level > 0) track = SoundManager.getAudio("Sounds/Backgrounds/Level"+level+"BG.wav");
         start();
     }
     public static void main(String[] args)
@@ -75,6 +83,7 @@ public class Game
                     pointsLabel.setText("Press any key to play :D");
                     return;
                 }
+                else pointsLabel.setText("Good Luck on level "+(level+1)+" :D");
                 double furthestX = Math.max(player1.getX(), player2.getX());
                 double cameraX = panel.getCameraX();
                 double end = Constants.DEFAULT_PANEL_WIDTH;

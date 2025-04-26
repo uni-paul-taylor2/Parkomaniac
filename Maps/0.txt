@@ -1,12 +1,4 @@
-10 1
-0.1 Images/Backgrounds/lvl3/1.png
-0.2 Images/Backgrounds/lvl3/2.png
-0.3 Images/Backgrounds/lvl3/3.png
-0.4 Images/Backgrounds/lvl3/4.png
-0.5 Images/Backgrounds/lvl3/5.png
-0.6 Images/Backgrounds/lvl3/6.png
-0.7 Images/Backgrounds/lvl3/7.png
-0.8 Images/Backgrounds/lvl3/8.png
-0.9 Images/Backgrounds/lvl3/9.png
-1 Images/Backgrounds/lvl3/10.png
+1 2
+1 Images/Backgrounds/lvl0/te.png
 Ground false brown Rectangle 0 180 599 179
+Door false orange RoundRectangle 400 130 30 50 5 5

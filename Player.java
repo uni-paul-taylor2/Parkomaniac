@@ -14,13 +14,14 @@ import JavaGameEngine.*;
  */
 public class Player implements CompositeGameObject
 {
-    //private Clip jumpSound = SoundManager.getAudio("Sounds/jump.wav");
-    //private Clip failSound = SoundManager.getAudio("Sounds/fail.wav");
-    //private Clip stepSound = SoundManager.getAudio("Sounds/step.wav");
+    private Clip jumpSound = SoundManager.getAudio("Sounds/Player/jump.wav");
+    private Clip failSound = SoundManager.getAudio("Sounds/Player/killed.wav");
+    private Clip stepSound = SoundManager.getAudio("Sounds/Player/step.wav");
     
     private int UP, DOWN, LEFT, RIGHT; //keys for movement
     private boolean up=false, down=false, left=false, right=false; //if a key is pressed(true) or released(false)
     
+    private GamePanel panel;
     private GameObject head;
     private GameObject leftLeg;
     private GameObject leftArm;
@@ -41,6 +42,7 @@ public class Player implements CompositeGameObject
     
     @Override
     public void addToPanel(GamePanel p){
+        panel = p;
         p.addItem(lowerRod,true,true);
         p.addItem(upperRod);
         p.addItem(torso);
@@ -69,6 +71,7 @@ public class Player implements CompositeGameObject
         jumpSpeed = origJumpSpeed();
         jumping = true;
         lowerRod.setAcceleration(0,Constants.GRAVITY);
+        SoundManager.playAudio(jumpSound);
         return true;
     }
     public boolean land(){
@@ -256,6 +259,11 @@ public class Player implements CompositeGameObject
     
     private void endGameIfCollision(ArrayList<GameObject> collisions){
         if(gameEnds) return;
+        if(panel!=null){
+            if(panel.getCameraX()>lowerRod.getX()) gameEnds = true;
+            if(panel.getCameraY()>lowerRod.getY()) gameEnds = true;
+            if(panel.getCameraY()+Constants.DEFAULT_PANEL_HEIGHT < lowerRod.getY()) gameEnds = true;
+        }
         for(GameObject item: collisions){
             if(item instanceof Ground){
                 Ground g = (Ground)item;
@@ -267,13 +275,13 @@ public class Player implements CompositeGameObject
             if(
                 item==leftLeg || item==rightLeg || item==leftArm || item==rightArm
                 || item==head || item==upperRod || item==lowerRod || item==torso || item==neck
-                || (item.getParent() instanceof Player) || (item instanceof Ground)
+                || (item.getParent() instanceof Player) || (item instanceof Door) || (item instanceof Ground)
             ) continue;
             gameEnds = true;
             break;
         }
         if(!gameEnds) return;
-        //SoundManager.playAudio(failSound);
+        SoundManager.playAudio(failSound);
         Game.stop();
     }
 }

@@ -76,6 +76,7 @@ public class LevelLoader{
                 Color colour = loadColour(config);
                 Shape shape = loadShape(config);
                 if("ground".equals(gameObjectType)) gameObjects.add(new Ground(shape,colour,deadly));
+                if("door".equals(gameObjectType)) gameObjects.add(new Door(shape,colour,deadly));
             }
         }
         catch(Exception e){
@@ -97,6 +98,9 @@ public class LevelLoader{
         colours.put("gray", Color.GRAY);
         colours.put("darkgray", Color.DARK_GRAY);
         colours.put("lightgray", Color.LIGHT_GRAY);
+        colours.put("grey", Color.GRAY);
+        colours.put("darkgrey", Color.DARK_GRAY);
+        colours.put("lightgrey", Color.LIGHT_GRAY);
         colours.put("orange", Color.ORANGE);
         colours.put("pink", Color.PINK);
         colours.put("brown", new Color(92,67,39));

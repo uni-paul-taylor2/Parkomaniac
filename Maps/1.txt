@@ -1,0 +1,6 @@
+1 4
+1 Images/Backgrounds/lvl1/labbg.png
+Ground false gray Rectangle 0 180 599 179
+Ground false darkgray Rectangle 720 130 500 300
+Ground true red Triangle 740 130 750 120 760 130
+Door false green RoundRectangle 1300 80 30 50 5 5

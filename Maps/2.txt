@@ -1,0 +1,50 @@
+10 39
+1 Images/Backgrounds/lvl2/1.png
+0.9 Images/Backgrounds/lvl2/2.png
+0.8 Images/Backgrounds/lvl2/3.png
+0.7 Images/Backgrounds/lvl2/4.png
+0.6 Images/Backgrounds/lvl2/5.png
+0.5 Images/Backgrounds/lvl2/6.png
+0.4 Images/Backgrounds/lvl2/7.png
+0.3 Images/Backgrounds/lvl2/8.png
+0.2 Images/Backgrounds/lvl2/9.png
+0.1 Images/Backgrounds/lvl2/10.png
+Ground false yellow Rectangle 0 180 10 179
+Ground true yellow Rectangle 0 190 10 179
+Ground false yellow Rectangle 60 180 10 179
+Ground true yellow Rectangle 60 190 10 179
+Ground false yellow Rectangle 120 180 10 179
+Ground true yellow Rectangle 120 190 10 179
+Ground false yellow Rectangle 180 180 10 179
+Ground true yellow Rectangle 180 190 10 179
+Ground false yellow Rectangle 240 180 10 179
+Ground true yellow Rectangle 240 190 10 179
+Ground false yellow Rectangle 300 180 10 179
+Ground true yellow Rectangle 300 190 10 179
+Ground false yellow Rectangle 360 180 10 179
+Ground true yellow Rectangle 360 190 10 179
+Ground false yellow Rectangle 420 180 10 179
+Ground true yellow Rectangle 420 190 10 179
+Ground true orange Rectangle 480 180 10 179
+Ground false yellow Rectangle 540 180 10 179
+Ground true yellow Rectangle 540 190 10 179
+Ground false yellow Rectangle 600 180 10 179
+Ground true yellow Rectangle 600 190 10 179
+Ground false yellow Rectangle 660 180 10 179
+Ground true yellow Rectangle 660 190 10 179
+Ground false yellow Rectangle 720 180 10 179
+Ground true yellow Rectangle 720 190 10 179
+Ground false yellow Rectangle 780 180 10 179
+Ground true yellow Rectangle 780 190 10 179
+Ground false yellow Rectangle 840 180 10 179
+Ground true yellow Rectangle 840 190 10 179
+Ground true yellow RoundRectangle 900 185 10 179 3 3
+Ground false yellow Rectangle 960 180 10 179
+Ground true yellow Rectangle 960 190 10 179
+Ground false yellow Rectangle 1020 180 10 179
+Ground true yellow Rectangle 1020 190 10 179
+Ground false yellow Rectangle 1080 180 10 179
+Ground true yellow Rectangle 1080 190 10 179
+Ground false yellow Rectangle 1140 180 10 179
+Ground true yellow Rectangle 1140 190 10 179
+Door false magenta RoundRectangle 1260 130 30 50 5 5
