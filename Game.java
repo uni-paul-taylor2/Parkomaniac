@@ -30,6 +30,11 @@ public class Game
     //more code can come here :D
     private static void start(){
         if(!stopped) return;
+        if(level>3){
+            pointsLabel.setText("Game WON :D");
+            return;
+        }
+        if(level > 0) track = SoundManager.getAudio("Sounds/Backgrounds/Level"+level+"BG.wav");
         SoundManager.playAudio(track,true);
         //more code can come here
         player1 = new Player(Color.GREEN, 'w', 's', 'a', 'd');
@@ -53,14 +58,18 @@ public class Game
         pointsLabel.setText("Game Over");
         //more code can come here
     }
+    public static void stop(boolean keepTrack){
+        if(stopped) return;
+        if(!keepTrack) track.stop();
+        panel.stop();
+        stopped = true;
+        pausedOnce = false;
+        pointsLabel.setText("Game Over");
+        //more code can come here
+    }
     public static void nextLevel(){
-        stop();
         level = level+1;
-        if(level > 3){
-            pointsLabel.setText("Game WON :D");
-            return; //all levels finished
-        }
-        if(level > 0) track = SoundManager.getAudio("Sounds/Backgrounds/Level"+level+"BG.wav");
+        stop(level>3);
         start();
     }
     public static void main(String[] args)
